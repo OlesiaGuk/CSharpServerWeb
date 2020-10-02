@@ -9,6 +9,8 @@ namespace Excel
     {
         static void Main(string[] args)
         {
+            ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
+
             var personsList = new List<Person>
             {
                 new Person("Иванов", "Иван", 36, "9131234567"),
@@ -19,7 +21,7 @@ namespace Excel
 
             var headers = new List<string> { "Фамилия", "Имя", "Возраст", "Номер телефона" };
 
-            using (var excelPackage = new ExcelPackage(new FileInfo("..//..//PersonsExcel.xlsx")))
+            using (var excelPackage = new ExcelPackage(new FileInfo(".\\PersonsExcel.xlsx")))
             {
                 var worksheet = excelPackage.Workbook.Worksheets.Add("Persons");
 
