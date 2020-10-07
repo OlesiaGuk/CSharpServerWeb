@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Excel", "Excel\Excel.csproj
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CountriesJson", "CountriesJson\CountriesJson.csproj", "{4A1A476B-FA28-4326-98B3-D2ADE7F9C5E6}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AdoNet", "AdoNet\AdoNet.csproj", "{E25F333F-64F9-4F30-9020-171970F3C0FF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{4A1A476B-FA28-4326-98B3-D2ADE7F9C5E6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4A1A476B-FA28-4326-98B3-D2ADE7F9C5E6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4A1A476B-FA28-4326-98B3-D2ADE7F9C5E6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E25F333F-64F9-4F30-9020-171970F3C0FF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E25F333F-64F9-4F30-9020-171970F3C0FF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E25F333F-64F9-4F30-9020-171970F3C0FF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E25F333F-64F9-4F30-9020-171970F3C0FF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
