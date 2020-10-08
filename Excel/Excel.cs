@@ -21,7 +21,7 @@ namespace Excel
 
             var headers = new List<string> { "Фамилия", "Имя", "Возраст", "Номер телефона" };
 
-            using (var excelPackage = new ExcelPackage(new FileInfo(".\\PersonsExcel.xlsx")))
+            using (var excelPackage = new ExcelPackage())
             {
                 var worksheet = excelPackage.Workbook.Worksheets.Add("Persons");
 
@@ -37,7 +37,7 @@ namespace Excel
                 worksheet.Cells[1, 1, personsList.Count + 1, headers.Count].Style.Border.Bottom.Style = ExcelBorderStyle.Thin;
                 worksheet.Cells[1, 1, personsList.Count + 1, headers.Count].Style.Border.Right.Style = ExcelBorderStyle.Thin;
 
-                excelPackage.Save();
+                excelPackage.SaveAs(new FileInfo("PersonsExcel.xlsx"));
             }
         }
     }
