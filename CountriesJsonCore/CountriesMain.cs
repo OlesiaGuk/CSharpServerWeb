@@ -18,29 +18,22 @@ namespace CountriesJsonCore
             Console.WriteLine($"Общая численность населения: {populationSum}");
             Console.WriteLine();
 
-            var currenciesList = countries
-                .Select(c => c.Currencies)
+            var currenciesNamesList = countries
+                .SelectMany(country => country.Currencies)
+                .Where(currency => currency.Name != null)
+                .Select(currency => currency.Name)
                 .ToList();
 
-            Console.WriteLine("Перечень валют: ");
+            Console.WriteLine("Общий перечень наименований валют: ");
+            currenciesNamesList.ForEach(Console.WriteLine);
 
-            foreach (var currencies in currenciesList)
-            {
-                foreach (var c in currencies)
-                {
-                    Console.WriteLine(c);
-                }
-            }
-
-            var currenciesNamesList = countries
-                .SelectMany(c => c.Currencies)
-                .Select(c => c.Name)
+            var currenciesDistinctNamesList = currenciesNamesList
                 .Distinct()
                 .ToList();
 
             Console.WriteLine();
             Console.WriteLine("Перечень уникальных наименований валют: ");
-            currenciesNamesList.ForEach(Console.WriteLine);
+            currenciesDistinctNamesList.ForEach(Console.WriteLine);
         }
     }
 }
