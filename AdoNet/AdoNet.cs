@@ -66,8 +66,11 @@ namespace AdoNet
             Console.WriteLine("Введите ID категории товара:");
             var userCategoryId = Console.ReadLine();
 
-            var addCategorySql = "INSERT INTO Categories(Name) VALUES (@userCategory);";
-            var addProductSql = "INSERT INTO Products(Name, Price, CategoryID) VALUES (@userProductName, @userProductPrice, @userCategoryId);";
+            var addCategorySql = "INSERT INTO Categories(Name) " +
+                                 "VALUES (@userCategory);";
+
+            var addProductSql = "INSERT INTO Products(Name, Price, CategoryID) " +
+                                "VALUES (@userProductName, @userProductPrice, @userCategoryId);";
 
             using (var command = new SqlCommand(addCategorySql + addProductSql, connection))
             {
@@ -85,7 +88,9 @@ namespace AdoNet
         {
             var productPrice = 100;
             var productId = 1;
-            var productEditingSql = "UPDATE Products SET Price = @productPrice WHERE Id = @productId";
+            var productEditingSql = "UPDATE Products " +
+                                    "SET Price = @productPrice " +
+                                    "WHERE Id = @productId";
 
             using (var command = new SqlCommand(productEditingSql, connection))
             {
@@ -100,7 +105,8 @@ namespace AdoNet
         public static void DeleteProduct(SqlConnection connection)
         {
             var productId = 2;
-            var productDeletionSql = "DELETE FROM Products WHERE Id = @productId;";
+            var productDeletionSql = "DELETE FROM Products " +
+                                     "WHERE Id = @productId;";
 
             using (var command = new SqlCommand(productDeletionSql, connection))
             {
