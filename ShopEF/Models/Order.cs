@@ -7,14 +7,12 @@ namespace ShopEF.Models
     {
         public int Id { get; set; }
 
-        public DateTime Date { get; set; } //todo: DateTime or string?
+        public string Date { get; set; }
 
         public int CustomerId { get; set; }
 
-        public int ProductId { get; set; }
+        public List<ProductOrder> ProductOrders { get; set; } = new List<ProductOrder>();
 
         public Customer Customer { get; set; }
-
-        public List<Product> Products { get; set; }
     }
 }

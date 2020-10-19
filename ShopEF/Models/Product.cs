@@ -10,8 +10,8 @@ namespace ShopEF.Models
 
         public int Price { get; set; }
 
-        public int CategoryId { get; set; }
+        public List<ProductCategory> ProductCategories { get; set; } = new List<ProductCategory>();
 
-        public List<ProductCategory> ProductCategories { get; set; }
+        public List<ProductOrder> ProductOrders { get; set; } = new List<ProductOrder>();
     }
 }
