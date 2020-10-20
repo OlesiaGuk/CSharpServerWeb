@@ -18,7 +18,9 @@ namespace ShopEF.Models
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer("Server=91.201.72.213;Database=ShopEFGuk;User=study;Password=study;MultipleActiveResultSets=true");
+            optionsBuilder
+                .UseLazyLoadingProxies()
+                .UseSqlServer("Server=91.201.72.213;Database=ShopEFGuk;User=study;Password=study;MultipleActiveResultSets=true");
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
