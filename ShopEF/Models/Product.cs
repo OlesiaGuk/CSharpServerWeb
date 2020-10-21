@@ -2,7 +2,7 @@
 
 namespace ShopEF.Models
 {
-    class Product
+    public class Product
     {
         public int Id { get; set; }
 
@@ -10,8 +10,8 @@ namespace ShopEF.Models
 
         public int Price { get; set; }
 
-        public List<ProductCategory> ProductCategories { get; set; } = new List<ProductCategory>();
+        public virtual ICollection<ProductCategory> ProductCategories { get; set; } = new List<ProductCategory>();
 
-        public List<ProductOrder> ProductOrders { get; set; } = new List<ProductOrder>();
+        public virtual ICollection<ProductOrder> ProductOrders { get; set; } = new List<ProductOrder>();
     }
 }

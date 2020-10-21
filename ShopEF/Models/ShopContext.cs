@@ -25,6 +25,8 @@ namespace ShopEF.Models
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+
+
             modelBuilder.Entity<ProductCategory>(b =>
                 {
                     b.HasOne(pc => pc.Category)

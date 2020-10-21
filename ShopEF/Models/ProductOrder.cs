@@ -1,16 +1,16 @@
 ﻿namespace ShopEF.Models
 {
-    class ProductOrder
+    public class ProductOrder
     {
         public int Id { get; set; }
 
         public int ProductId { get; set; }
 
-        public Product Product { get; set; }
+        public virtual Product Product { get; set; }
 
         public int OrderId { get; set; }
 
-        public Order Order { get; set; }
+        public virtual Order Order { get; set; }
 
         public double ProductsAmount { get; set; }
     }

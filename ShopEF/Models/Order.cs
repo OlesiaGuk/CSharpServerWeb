@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace ShopEF.Models
 {
-    class Order
+    public class Order
     {
         public int Id { get; set; }
 
@@ -11,8 +11,8 @@ namespace ShopEF.Models
 
         public int CustomerId { get; set; }
 
-        public List<ProductOrder> ProductOrders { get; set; } = new List<ProductOrder>();
+        public virtual ICollection<ProductOrder> ProductOrders { get; set; } = new List<ProductOrder>();
 
-        public Customer Customer { get; set; }
+        public virtual Customer Customer { get; set; }
     }
 }

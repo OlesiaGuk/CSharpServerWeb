@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Linq;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Query.SqlExpressions;
 using ShopEF.Models;
 
 namespace ShopEF
@@ -8,14 +10,20 @@ namespace ShopEF
     {
         static void Main(string[] args)
         {
-            // FillDatabase();
+            //FillDatabase();
 
             //var searchedPhoneNumber = "12345";
             //var editedPhoneNumber = "12245";
             //EditCustomerPhoneNumber(searchedPhoneNumber, editedPhoneNumber);
 
-            var deletingProductName = "Вишня";
-            DeleteProduct(deletingProductName);
+            //var deletingProductName = "Вишня";
+            //DeleteProduct(deletingProductName);
+
+            // Console.WriteLine("Самый часто покупаемый товар - " + GetMostOftenBuyProduct());
+
+            GetEveryCustomerCosts();
+
+            //GetBoughtProductsAmountByCategories();
         }
 
         public static void FillDatabase()
@@ -109,12 +117,70 @@ namespace ShopEF
             }
         }
 
+        public static string GetMostOftenBuyProduct()
+        {
+            using (var db = new ShopContext())
+            {
+                var id = db.ProductOrders
+                    .GroupBy(po => po.ProductId)
+                    .Select(g => new { Id = g.Key, Value = g.Count() })
+                    .OrderByDescending(g => g.Value)
+                    .First()
+                    .Id;
+
+                var productName = db.Products
+                    .Single(p => p.Id == id)
+                    .Name;
+
+                return productName;
+            }
+        }
+
         //Найти сколько каждый клиент потратил денег за все время
         public static double GetEveryCustomerCosts()
         {
             using (var db = new ShopContext())
             {
-                return 0;
+                //var x = db.Customers
+                //    .GroupBy(c => c.Id)
+                //    .Select(g => new
+                //        {Id = g.Key, Value = g.Select(p => p.Orders.Select(o => o.ProductOrders.Sum(i => i.ProductsAmount * i.Product.Price)))})
+                 
+                //    ;
+
+              //  x.ForEach(Console.WriteLine);
+              return 0;
+            }
+        }
+
+        // Вывести сколько товаров каждой категории купили
+        public static void GetBoughtProductsAmountByCategories()
+        {
+            using (var db = new ShopContext())
+            {
+                //var x = db.ProductOrders
+                //    .GroupBy(po => po.Product.)
+                //    .Select(g => new { Id = g.Key, Value = g.Sum(p => p.ProductsAmount) })
+                //    //.ToList()
+                //    ;
+
+                //var y = db.ProductCategories
+                //    .GroupBy(pc => pc.CategoryId)
+                //    .Select(g => new {Id = g.Key, Value = });
+
+                //// x.ForEach(Console.WriteLine);
+
+                //var y = x.Single(p => p.Id == 5).Value;
+                //y.ForEach(Console.WriteLine);
+                //   Console.WriteLine(y);
+
+                var z = db.ProductCategories
+                    .GroupBy(pc => pc.CategoryId)
+                    .Select(g => new { Id = g.Key, Value = g.Select(p => p.Product) })
+                    .ToList()
+                    ;
+
+                z.ForEach(Console.WriteLine);
             }
         }
     }

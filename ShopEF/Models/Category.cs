@@ -2,12 +2,12 @@
 
 namespace ShopEF.Models
 {
-    class Category
+    public class Category
     {
         public int Id { get; set; }
 
         public string Name { get; set; }
 
-        public List<ProductCategory> ProductCategories { get; set; } = new List<ProductCategory>();
+        public virtual ICollection<ProductCategory> ProductCategories { get; set; } = new List<ProductCategory>();
     }
 }
