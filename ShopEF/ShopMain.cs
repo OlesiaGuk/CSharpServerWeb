@@ -19,11 +19,11 @@ namespace ShopEF
             //var deletingProductName = "Вишня";
             //DeleteProduct(deletingProductName);
 
-            // Console.WriteLine("Самый часто покупаемый товар - " + GetMostOftenBuyProduct());
+            // PrintMostOftenBuyProduct());
 
-            GetEveryCustomerCosts();
+            PrintEveryCustomerCosts();
 
-            //GetBoughtProductsAmountByCategories();
+            // PrintBoughtProductsAmountByCategories();
         }
 
         public static void FillDatabase()
@@ -117,71 +117,81 @@ namespace ShopEF
             }
         }
 
-        public static string GetMostOftenBuyProduct()
+        public static void PrintMostOftenBuyProduct()
         {
             using (var db = new ShopContext())
             {
                 var id = db.ProductOrders
-                    .GroupBy(po => po.ProductId)
-                    .Select(g => new { Id = g.Key, Value = g.Count() })
-                    .OrderByDescending(g => g.Value)
-                    .First()
-                    .Id;
+                              .GroupBy(po => po.ProductId)
+                              .Select(g => new { Id = g.Key, Value = g.Count() })
+                              .OrderByDescending(g => g.Value)
+                              .First()
+                              .Id;
 
                 var productName = db.Products
-                    .Single(p => p.Id == id)
-                    .Name;
+                                   .Single(p => p.Id == id)
+                                   .Name;
 
-                return productName;
+                Console.WriteLine($"Самый часто покупаемый товар - {productName}");
+                Console.WriteLine();
             }
         }
 
         //Найти сколько каждый клиент потратил денег за все время
-        public static double GetEveryCustomerCosts()
+        public static void PrintEveryCustomerCosts()
         {
             using (var db = new ShopContext())
             {
-                //var x = db.Customers
-                //    .GroupBy(c => c.Id)
-                //    .Select(g => new
-                //        {Id = g.Key, Value = g.Select(p => p.Orders.Select(o => o.ProductOrders.Sum(i => i.ProductsAmount * i.Product.Price)))})
-                 
-                //    ;
+                // var everyCustomerCosts = db.
 
-              //  x.ForEach(Console.WriteLine);
-              return 0;
+
+
             }
         }
 
-        // Вывести сколько товаров каждой категории купили
-        public static void GetBoughtProductsAmountByCategories()
+        public static void PrintBoughtProductsAmountByCategories()
         {
             using (var db = new ShopContext())
             {
-                //var x = db.ProductOrders
-                //    .GroupBy(po => po.Product.)
-                //    .Select(g => new { Id = g.Key, Value = g.Sum(p => p.ProductsAmount) })
-                //    //.ToList()
-                //    ;
+                var productsAmountByCategories = db.ProductCategories
+                    .Join(db.ProductOrders,
+                        pc => pc.ProductId,
+                        po => po.ProductId,
+                        (pc, po) =>
+                            new
+                            {
+                                CategoryName = pc.Category.Name,
+                                BoughtAmount = po.ProductsAmount
+                            }
+                    )
+                    .GroupBy(t => t.CategoryName)
+                    .Select(g => new { g.Key, Value = g.Sum(t => t.BoughtAmount) })
+                    .ToList();
 
-                //var y = db.ProductCategories
-                //    .GroupBy(pc => pc.CategoryId)
-                //    .Select(g => new {Id = g.Key, Value = });
+                Console.WriteLine("Продано товаров по категориям: ");
 
-                //// x.ForEach(Console.WriteLine);
-
-                //var y = x.Single(p => p.Id == 5).Value;
-                //y.ForEach(Console.WriteLine);
-                //   Console.WriteLine(y);
-
-                var z = db.ProductCategories
-                    .GroupBy(pc => pc.CategoryId)
-                    .Select(g => new { Id = g.Key, Value = g.Select(p => p.Product) })
-                    .ToList()
-                    ;
-
-                z.ForEach(Console.WriteLine);
+                foreach (var cp in productsAmountByCategories)
+                {
+                    Console.WriteLine($"{cp.Key} = {cp.Value} кг");
+                }
             }
         }
     }
 }
+
+//var y = db.ProductCategories
+//    .AsEnumerable()
+//    .GroupJoin(db.ProductOrders,
+//        pc => pc.ProductId,
+//        po => po.ProductId,
+//        (pc, po) =>
+//            new
+//            {
+//                CategoryName = pc.Category.Name,
+//                BoughtAmount = po.Sum(p => p.ProductsAmount)
+
+//            }
+//    )
+//    .GroupBy(t => t.CategoryName)
+//    .Select(g => new { g.Key, Value = g.Sum(t => t.BoughtAmount) })
+//    .ToList();
