@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Linq;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Query.SqlExpressions;
 using ShopEF.Models;
 
 namespace ShopEF
@@ -10,20 +8,20 @@ namespace ShopEF
     {
         static void Main(string[] args)
         {
-            //FillDatabase();
+            FillDatabase();
 
-            //var searchedPhoneNumber = "12345";
-            //var editedPhoneNumber = "12245";
-            //EditCustomerPhoneNumber(searchedPhoneNumber, editedPhoneNumber);
+            var searchedPhoneNumber = "12345";
+            var editedPhoneNumber = "12245";
+            EditCustomerPhoneNumber(searchedPhoneNumber, editedPhoneNumber);
 
-            //var deletingProductName = "Вишня";
-            //DeleteProduct(deletingProductName);
+            var deletingProductName = "Вишня";
+            DeleteProduct(deletingProductName);
 
-            // PrintMostOftenBuyProduct());
+            PrintMostOftenBuyProduct();
 
             PrintEveryCustomerCosts();
 
-            // PrintBoughtProductsAmountByCategories();
+            PrintBoughtProductsAmountByCategories();
         }
 
         public static void FillDatabase()
@@ -137,15 +135,31 @@ namespace ShopEF
             }
         }
 
-        //Найти сколько каждый клиент потратил денег за все время
         public static void PrintEveryCustomerCosts()
         {
             using (var db = new ShopContext())
             {
-                // var everyCustomerCosts = db.
+                var costsByCustomers = db.Orders
+                     .AsEnumerable()
+                     .GroupBy(o => o.Customer.PhoneNumber)
+                     .Select(groupByPhoneNumber => new
+                     {
+                         groupByPhoneNumber.Key,
+                         Value = groupByPhoneNumber.Sum(o => o.ProductOrders
+                                             .GroupBy(po => po.OrderId)
+                                             .Select(groupByOrderId => new { groupByOrderId.Key, Value = groupByOrderId.Sum(po => po.ProductsAmount * po.Product.Price) })
+                                             .Sum(p => p.Value))
+                     })
+                     .ToList();
 
+                Console.WriteLine("Потрачено каждым клиентом за все время:");
 
+                foreach (var cc in costsByCustomers)
+                {
+                    Console.WriteLine($"Клиент с номером телефона {cc.Key} = {cc.Value} руб.");
+                }
 
+                Console.WriteLine();
             }
         }
 
@@ -154,19 +168,18 @@ namespace ShopEF
             using (var db = new ShopContext())
             {
                 var productsAmountByCategories = db.ProductCategories
-                    .Join(db.ProductOrders,
-                        pc => pc.ProductId,
-                        po => po.ProductId,
-                        (pc, po) =>
-                            new
-                            {
-                                CategoryName = pc.Category.Name,
-                                BoughtAmount = po.ProductsAmount
-                            }
-                    )
-                    .GroupBy(t => t.CategoryName)
-                    .Select(g => new { g.Key, Value = g.Sum(t => t.BoughtAmount) })
-                    .ToList();
+                      .AsEnumerable()
+                      .GroupBy(pc => pc.Category.Name)
+                      .Select(groupByCategoryName => new
+                      {
+                          groupByCategoryName.Key,
+                          Value = groupByCategoryName.Sum(pc => pc.Product.ProductOrders
+                                                  .GroupBy(po => po.ProductId)
+                                                  .Select(groupByProductId => new { groupByProductId.Key, Value = groupByProductId.Sum(po => po.ProductsAmount) })
+                                                  .Sum(p => p.Value)
+                          )
+                      })
+                      .ToList();
 
                 Console.WriteLine("Продано товаров по категориям: ");
 
@@ -178,20 +191,3 @@ namespace ShopEF
         }
     }
 }
-
-//var y = db.ProductCategories
-//    .AsEnumerable()
-//    .GroupJoin(db.ProductOrders,
-//        pc => pc.ProductId,
-//        po => po.ProductId,
-//        (pc, po) =>
-//            new
-//            {
-//                CategoryName = pc.Category.Name,
-//                BoughtAmount = po.Sum(p => p.ProductsAmount)
-
-//            }
-//    )
-//    .GroupBy(t => t.CategoryName)
-//    .Select(g => new { g.Key, Value = g.Sum(t => t.BoughtAmount) })
-//    .ToList();
