@@ -13,7 +13,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AdoNet", "AdoNet\AdoNet.csp
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CountriesJsonCore", "CountriesJsonCore\CountriesJsonCore.csproj", "{C4683844-D499-48DA-9E0E-5B38C8BF5AED}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShopEF", "ShopEF\ShopEF.csproj", "{02E37EE9-96C0-4BFF-A622-444DACDF56B6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ShopEF", "ShopEF\ShopEF.csproj", "{02E37EE9-96C0-4BFF-A622-444DACDF56B6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Migrations.DataAccess", "Migrations.DataAccess\Migrations.DataAccess.csproj", "{9551E428-3CBC-4A75-82AC-E1E7F9F7972C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Migrations", "Migrations\Migrations.csproj", "{211CD54B-FE50-40D7-B797-8CCF8F5BD14F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -45,6 +49,14 @@ Global
 		{02E37EE9-96C0-4BFF-A622-444DACDF56B6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{02E37EE9-96C0-4BFF-A622-444DACDF56B6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{02E37EE9-96C0-4BFF-A622-444DACDF56B6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9551E428-3CBC-4A75-82AC-E1E7F9F7972C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9551E428-3CBC-4A75-82AC-E1E7F9F7972C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9551E428-3CBC-4A75-82AC-E1E7F9F7972C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9551E428-3CBC-4A75-82AC-E1E7F9F7972C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{211CD54B-FE50-40D7-B797-8CCF8F5BD14F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{211CD54B-FE50-40D7-B797-8CCF8F5BD14F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{211CD54B-FE50-40D7-B797-8CCF8F5BD14F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{211CD54B-FE50-40D7-B797-8CCF8F5BD14F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
