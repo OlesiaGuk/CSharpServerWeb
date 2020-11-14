@@ -74,8 +74,8 @@ namespace AdoNet
 
             using (var command = new SqlCommand(addCategorySql + addProductSql, connection))
             {
-                command.Parameters.Add(new SqlParameter("@userCategory", userCategory) { SqlDbType = SqlDbType.Text });
-                command.Parameters.Add(new SqlParameter("@userProductName", userProductName) { SqlDbType = SqlDbType.Text });
+                command.Parameters.Add(new SqlParameter("@userCategory", userCategory) { SqlDbType = SqlDbType.NVarChar });
+                command.Parameters.Add(new SqlParameter("@userProductName", userProductName) { SqlDbType = SqlDbType.NVarChar });
                 command.Parameters.Add(new SqlParameter("@userProductPrice", userProductPrice) { SqlDbType = SqlDbType.Int });
                 command.Parameters.Add(new SqlParameter("@userCategoryId", userCategoryId) { SqlDbType = SqlDbType.Int });
 
