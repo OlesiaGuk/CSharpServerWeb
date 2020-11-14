@@ -20,7 +20,7 @@ namespace CountriesJsonCore
 
             var currenciesNamesList = countries
                 .SelectMany(country => country.Currencies)
-                .Where(currency => currency.Name != null)
+                .Where(currency => currency.Name != null && currency.Code != null)
                 .Select(currency => currency.Name)
                 .ToList();
 
