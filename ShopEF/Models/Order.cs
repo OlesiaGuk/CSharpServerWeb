@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace ShopEF.Models
 {
@@ -6,7 +7,7 @@ namespace ShopEF.Models
     {
         public int Id { get; set; }
 
-        public string Date { get; set; }
+        public DateTime Date { get; set; }
 
         public int CustomerId { get; set; }
 
