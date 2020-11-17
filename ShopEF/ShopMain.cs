@@ -8,20 +8,20 @@ namespace ShopEF
     {
         static void Main(string[] args)
         {
-            FillDatabase();
+            //FillDatabase();
 
-            var searchedPhoneNumber = "12345";
-            var editedPhoneNumber = "12245";
-            EditCustomerPhoneNumber(searchedPhoneNumber, editedPhoneNumber);
+            //var searchedPhoneNumber = "12345";
+            //var editedPhoneNumber = "12245";
+            //EditCustomerPhoneNumber(searchedPhoneNumber, editedPhoneNumber);
 
-            var deletingProductName = "Вишня";
-            DeleteProduct(deletingProductName);
+            //var deletingProductName = "Вишня";
+            //DeleteProduct(deletingProductName);
 
             PrintMostOftenBuyProduct();
 
-            PrintEveryCustomerCosts();
+            //PrintEveryCustomerCosts();
 
-            PrintBoughtProductsAmountByCategories();
+            //PrintBoughtProductsAmountByCategories();
         }
 
         public static void FillDatabase()
@@ -116,15 +116,9 @@ namespace ShopEF
         {
             using var db = new ShopContext();
 
-            var id = db.ProductOrders
-                .GroupBy(po => po.ProductId)
-                .Select(g => new { Id = g.Key, Value = g.Count() })
-                .OrderByDescending(g => g.Value)
-                .First()
-                .Id;
-
             var productName = db.Products
-                .Single(p => p.Id == id)
+                .OrderByDescending(p => p.ProductOrders.Sum(po => po.ProductsAmount))
+                .First()
                 .Name;
 
             Console.WriteLine($"Самый часто покупаемый товар - {productName}");
@@ -136,7 +130,7 @@ namespace ShopEF
             using var db = new ShopContext();
 
             var costsByCustomers = db.Orders
-                 .AsEnumerable()
+                .AsEnumerable()
                  .GroupBy(o => o.Customer.PhoneNumber)
                  .Select(groupByPhoneNumber => new
                  {
