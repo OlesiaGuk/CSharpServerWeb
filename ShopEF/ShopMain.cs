@@ -8,20 +8,20 @@ namespace ShopEF
     {
         static void Main(string[] args)
         {
-            //FillDatabase();
+            FillDatabase();
 
-            //var searchedPhoneNumber = "12345";
-            //var editedPhoneNumber = "12245";
-            //EditCustomerPhoneNumber(searchedPhoneNumber, editedPhoneNumber);
+            var searchedPhoneNumber = "12345";
+            var editedPhoneNumber = "12245";
+            EditCustomerPhoneNumber(searchedPhoneNumber, editedPhoneNumber);
 
-            //var deletingProductName = "Вишня";
-            //DeleteProduct(deletingProductName);
+            var deletingProductName = "Вишня";
+            DeleteProduct(deletingProductName);
 
             PrintMostOftenBuyProduct();
 
-            //PrintEveryCustomerCosts();
+            PrintEveryCustomerCosts();
 
-            //PrintBoughtProductsAmountByCategories();
+            PrintBoughtProductsAmountByCategories();
         }
 
         public static void FillDatabase()
@@ -129,24 +129,19 @@ namespace ShopEF
         {
             using var db = new ShopContext();
 
-            var costsByCustomers = db.Orders
-                .AsEnumerable()
-                 .GroupBy(o => o.Customer.PhoneNumber)
-                 .Select(groupByPhoneNumber => new
-                 {
-                     groupByPhoneNumber.Key,
-                     Value = groupByPhoneNumber.Sum(o => o.ProductOrders
-                                         .GroupBy(po => po.OrderId)
-                                         .Select(groupByOrderId => new { groupByOrderId.Key, Value = groupByOrderId.Sum(po => po.ProductsAmount * po.Product.Price) })
-                                         .Sum(p => p.Value))
-                 })
-                 .ToList();
+            var costsByCustomers = db.Customers
+                .Select(c => new
+                {
+                    CustomerPhoneNumber = c.PhoneNumber,
+                    CustomerCosts = c.Orders.SelectMany(o => o.ProductOrders).Sum(po => po.ProductsAmount * po.Product.Price)
+                })
+                .ToList();
 
             Console.WriteLine("Потрачено каждым клиентом за все время:");
 
             foreach (var cc in costsByCustomers)
             {
-                Console.WriteLine($"Клиент с номером телефона {cc.Key} = {cc.Value} руб.");
+                Console.WriteLine(cc);
             }
 
             Console.WriteLine();
@@ -156,25 +151,19 @@ namespace ShopEF
         {
             using var db = new ShopContext();
 
-            var productsAmountByCategories = db.ProductCategories
-                  .AsEnumerable()
-                  .GroupBy(pc => pc.Category.Name)
-                  .Select(groupByCategoryName => new
-                  {
-                      groupByCategoryName.Key,
-                      Value = groupByCategoryName.Sum(pc => pc.Product.ProductOrders
-                                              .GroupBy(po => po.ProductId)
-                                              .Select(groupByProductId => new { groupByProductId.Key, Value = groupByProductId.Sum(po => po.ProductsAmount) })
-                                              .Sum(p => p.Value)
-                      )
-                  })
-                  .ToList();
+            var productsAmountByCategories = db.Categories
+                .Select(c => new
+                {
+                    CategoryName = c.Name,
+                    SoldAmount = c.ProductCategories.SelectMany(pc => pc.Product.ProductOrders).Sum(po => po.ProductsAmount)
+                })
+                .ToList();
 
             Console.WriteLine("Продано товаров по категориям: ");
 
-            foreach (var cp in productsAmountByCategories)
+            foreach (var c in productsAmountByCategories)
             {
-                Console.WriteLine($"{cp.Key} = {cp.Value} кг");
+                Console.WriteLine(c);
             }
         }
     }

@@ -15,9 +15,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CountriesJsonCore", "Countr
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ShopEF", "ShopEF\ShopEF.csproj", "{02E37EE9-96C0-4BFF-A622-444DACDF56B6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Migrations.DataAccess", "Migrations.DataAccess\Migrations.DataAccess.csproj", "{9551E428-3CBC-4A75-82AC-E1E7F9F7972C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Migrations.DataAccess", "Migrations.DataAccess\Migrations.DataAccess.csproj", "{9551E428-3CBC-4A75-82AC-E1E7F9F7972C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Migrations", "Migrations\Migrations.csproj", "{211CD54B-FE50-40D7-B797-8CCF8F5BD14F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Migrations", "Migrations\Migrations.csproj", "{211CD54B-FE50-40D7-B797-8CCF8F5BD14F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -8,7 +8,7 @@ namespace ShopEF.Models
 
         public string Name { get; set; }
 
-        public int Price { get; set; }
+        public double Price { get; set; }
 
         public virtual ICollection<ProductCategory> ProductCategories { get; set; } = new List<ProductCategory>();
 
