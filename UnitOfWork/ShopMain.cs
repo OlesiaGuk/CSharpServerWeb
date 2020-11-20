@@ -34,20 +34,25 @@ namespace UnitOfWork
         public static void AddProductWithTransaction()
         {
             using var db = new ShopContext();
+
+            using var uow = new DAL.UnitOfWork(db);
+            var categoryRepo = uow.GetRepository<ICategoryRepository>();
+            var productRepo = uow.GetRepository<IProductRepository>();
+
             using var dbTransaction = db.Database.BeginTransaction();
 
             try
             {
                 var newCategory = new Category { Name = "Орехи" };
-                db.Categories.Add(newCategory);
-                db.SaveChanges();
+                categoryRepo.Add(newCategory);
+                uow.Save();
 
                 var newProduct = new Product { Name = "Миндаль", Price = 400 };
-                db.Products.Add(newProduct);
-                db.SaveChanges();
+                productRepo.Add(newProduct);
+                uow.Save();
 
                 newProduct.ProductCategories.Add(new ProductCategory { CategoryId = newCategory.Id, ProductId = newProduct.Id });
-                db.SaveChanges();
+                uow.Save();
 
                 dbTransaction.Commit();
             }
