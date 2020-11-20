@@ -1,12 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 using UnitOfWork.Models;
 
 namespace UnitOfWork.DAL
 {
-    public interface ICategoryRepository : IRepository<Category>
+    public interface ICategoryRepository : IRepositoryBase<Category>
     {
-
+        Dictionary<string, double> GetBoughtProductsAmountByCategories();
     }
 }

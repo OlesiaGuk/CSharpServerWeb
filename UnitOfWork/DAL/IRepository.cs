@@ -1,19 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace UnitOfWork.DAL
+﻿namespace UnitOfWork.DAL
 {
-    public interface IRepository<T> where T : class
+    public interface IRepository
     {
-        void Create(T entity);
-
-        void Update(T entity);
-
-        public void Delete(T entity);
-
-        T[] GetAll();
-
-        T GetById(int id);
     }
 }

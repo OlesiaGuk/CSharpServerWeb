@@ -1,12 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace UnitOfWork.DAL
 {
-    public class BaseEfRepository<T> : IRepository<T> where T : class
+    public class BaseEfRepository<T> : IRepositoryBase<T> where T : class
     {
         protected DbContext _db;
         protected DbSet<T> _dbSet;
@@ -17,9 +14,14 @@ namespace UnitOfWork.DAL
             _dbSet = db.Set<T>();
         }
 
-        public virtual void Create(T entity)
+        public virtual void Add(T entity)
         {
             _dbSet.Add(entity);
+        }
+
+        public void AddRange(params T[] entities)
+        {
+            _dbSet.AddRange(entities);
         }
 
         public virtual void Update(T entity)
