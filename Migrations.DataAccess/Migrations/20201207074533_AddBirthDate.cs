@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
+﻿using System;
+using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Migrations.DataAccess.Migrations
 {
@@ -6,11 +7,12 @@ namespace Migrations.DataAccess.Migrations
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.AddColumn<string>(
+            migrationBuilder.AddColumn<DateTime>(
                 name: "BirthDate",
                 table: "Customers",
-                type: "nvarchar(max)",
-                nullable: true);
+                type: "datetime2",
+                nullable: false,
+                defaultValue: new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified));
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)

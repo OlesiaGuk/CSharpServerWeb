@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace Migrations.DataAccess.Models
 {
@@ -16,7 +17,7 @@ namespace Migrations.DataAccess.Models
 
         public string Email { get; set; }
 
-        public string BirthDate { get; set; }
+        public DateTime BirthDate { get; set; }
 
         public virtual ICollection<Order> Orders { get; set; } = new List<Order>();
     }

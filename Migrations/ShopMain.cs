@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using System;
+using Microsoft.EntityFrameworkCore;
 using Migrations.DataAccess;
 using Migrations.DataAccess.Models;
 
@@ -55,10 +56,10 @@ namespace Migrations
                 db.Customers.AddRange(customer1, customer2, customer3);
                 db.SaveChanges();
 
-                var order1 = new Order { Date = "2020-09-01", CustomerId = customer1.Id };
-                var order2 = new Order { Date = "2020-09-05", CustomerId = customer1.Id };
-                var order3 = new Order { Date = "2020-09-05", CustomerId = customer2.Id };
-                var order4 = new Order { Date = "2020-09-10", CustomerId = customer3.Id };
+                var order1 = new Order { Date = new DateTime(2020, 09, 01), CustomerId = customer1.Id };
+                var order2 = new Order { Date = new DateTime(2020, 09, 05), CustomerId = customer1.Id };
+                var order3 = new Order { Date = new DateTime(2020, 09, 05), CustomerId = customer2.Id };
+                var order4 = new Order { Date = new DateTime(2020, 09, 10), CustomerId = customer3.Id };
 
                 db.Orders.AddRange(order1, order2, order3, order4);
                 db.SaveChanges();
