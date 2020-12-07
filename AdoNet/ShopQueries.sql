@@ -13,7 +13,7 @@ CREATE TABLE dbo.Products
 	[Name] NVARCHAR(50) NOT NULL,
 	[Price] INT NOT NULL,
 	[CategoryId] INT NOT NULL,
-FOREIGN KEY (CategoryId) REFERENCES Categories(id)
+	FOREIGN KEY (CategoryId) REFERENCES Categories(id)
 );
 
 INSERT INTO dbo.Categories (Name)
