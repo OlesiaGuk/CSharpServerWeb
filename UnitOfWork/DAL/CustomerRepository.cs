@@ -18,12 +18,13 @@ namespace UnitOfWork.DAL
 
         public Dictionary<string, double> GetEveryCustomerCosts()
         {
-            return _dbSet.Select(c => new
-            {
-                CustomerPhoneNumber = c.PhoneNumber,
-                CustomerCosts = c.Orders.SelectMany(o => o.ProductOrders).Sum(po => po.ProductsAmount * po.Product.Price)
+            return _dbSet
+                .Select(c => new
+                {
+                    CustomerPhoneNumber = c.PhoneNumber,
+                    CustomerCosts = c.Orders.SelectMany(o => o.ProductOrders).Sum(po => po.ProductsAmount * po.Product.Price)
 
-            })
+                })
                 .ToDictionary(a => a.CustomerPhoneNumber, a => a.CustomerCosts);
         }
     }

@@ -13,11 +13,12 @@ namespace UnitOfWork.DAL
 
         public Dictionary<string, double> GetBoughtProductsAmountByCategories()
         {
-            return _dbSet.Select(c => new
-            {
-                CategoryName = c.Name,
-                SoldAmount = c.ProductCategories.SelectMany(pc => pc.Product.ProductOrders).Sum(po => po.ProductsAmount)
-            })
+            return _dbSet
+                .Select(c => new
+                {
+                    CategoryName = c.Name,
+                    SoldAmount = c.ProductCategories.SelectMany(pc => pc.Product.ProductOrders).Sum(po => po.ProductsAmount)
+                })
                 .ToDictionary(a => a.CategoryName, a => a.SoldAmount);
         }
     }
