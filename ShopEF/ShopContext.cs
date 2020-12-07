@@ -58,31 +58,38 @@ namespace ShopEF
             modelBuilder.Entity<Category>(b =>
             {
                 b.Property(c => c.Name)
-                    .IsRequired();
+                    .IsRequired()
+                    .HasMaxLength(50);
             });
 
             modelBuilder.Entity<Product>(b =>
             {
                 b.Property(p => p.Name)
-                    .IsRequired();
+                    .IsRequired()
+                    .HasMaxLength(50);
             });
 
             modelBuilder.Entity<Customer>(b =>
             {
                 b.Property(c => c.Surname)
-                    .IsRequired();
+                    .IsRequired()
+                    .HasMaxLength(50);
 
                 b.Property(c => c.Name)
-                    .IsRequired();
+                    .IsRequired()
+                    .HasMaxLength(30);
 
                 b.Property(c => c.MiddleName)
-                    .IsRequired();
+                    .IsRequired()
+                    .HasMaxLength(50);
 
                 b.Property(c => c.PhoneNumber)
-                    .IsRequired();
+                    .IsRequired()
+                    .HasMaxLength(20);
 
                 b.Property(c => c.Email)
-                    .IsRequired();
+                    .IsRequired()
+                    .HasMaxLength(50);
             });
         }
     }
